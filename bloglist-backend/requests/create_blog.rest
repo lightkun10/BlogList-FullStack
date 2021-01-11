@@ -1,0 +1,9 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRhbmtpbWFzdGEiLCJpZCI6IjVmZjY3OTVlODA2OWJjNDRiOGY5MGY2OSIsImlhdCI6MTYxMDA5NTYzOX0.8Cr8ohsBVFh4BZWSMJwBDUtVvnJcY_eqR8KqmqAsWqs
+
+{
+  "title": "Durham mother of four back on track after roach infestation",
+  "author": "Dan Silverstein",
+  "url": "https://www.wral.com/durham-mother-of-four-back-on-track-after-roach-infestation/19452790/"
+}

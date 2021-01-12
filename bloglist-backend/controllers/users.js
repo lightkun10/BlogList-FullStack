@@ -1,7 +1,6 @@
 const bcrypt = require('bcryptjs');
 const usersRouter = require('express').Router();
 const User = require('../models/user');
-const { checkInput } = require('../utils/checkInput');
 
 usersRouter.get('/', async (request, response) => {
   const users = await User
@@ -14,17 +13,11 @@ usersRouter.get('/', async (request, response) => {
 usersRouter.post('/', async (request, response) => {
   const { password, name, username } = request.body;
 
-  // Check the length of password and username
-  const malformed = checkInput(username, password);
-
-  if (!password) {
-    return response.status(400).json({ error: 'Password must be provided' });
-  }
-
-  if (malformed) {
-    return response
-      .status(400)
-      .json({ error: `${malformed} must be at least 3 characters long.` });
+  // Check the length of password
+  if (!password || password.length < 3) {
+    return response.status(400).send({
+      error: 'password must min length 3',
+    });
   }
 
   const saltRounds = 10;

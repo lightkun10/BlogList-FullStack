@@ -20,15 +20,15 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs(sortByLikes(blogs))
-    )  
+    );
   }, []);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser');
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
-      setUser(user);
       blogService.setToken(user.token);
+      setUser(user);
     }
   }, []);
 
@@ -93,7 +93,6 @@ const App = () => {
   }
 
   const handleLike = async (blog) => {
-    console.log(blog);
     const blogId = blog.id;
     const updatedBlog = {
       user: blog.user.id,
@@ -113,6 +112,26 @@ const App = () => {
         setErrorMessage(null);
       }, 5000);
       setSuccessMessage(null);
+    }
+  }
+
+  const handleDelete = async (blog) => {
+    if (!window.confirm(`Remove blog ${blog.title} by ${blog.author}`)) {
+      return;
+    }
+    const id = blog.id;
+
+    try {
+      await blogService.deleteBlog(id);
+      setSuccessMessage(`Deleted ${blog.title} by ${blog.author}`);
+      setTimeout(() => {
+        setSuccessMessage(null);
+      }, 5000);
+      setErrorMessage(null);
+      // Update state of App component
+      setBlogs(sortByLikes(blogs.filter((blog) => blog.id !== id)));
+    } catch (exception) {
+      console.log(exception);
     }
   }
 
@@ -174,11 +193,13 @@ const App = () => {
 
       {addBlogForm()}
 
-      {blogs.map(blog =>
+      {blogs.map((blog) =>
         <Blog 
           key={blog.id} 
           blog={blog}
-          addLike={() => handleLike(blog)} />
+          addLike={() => handleLike(blog)}
+          onDelete={() => handleDelete(blog)}
+          />
       )}
     </div>
   );

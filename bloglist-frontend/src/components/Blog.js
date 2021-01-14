@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Blog = ({ blog, addLike }) => {
+const Blog = ({ blog, addLike, onDelete }) => {
   const [detailVisible, setDetailVisible] = useState('view');
 
   const blogStyle = {
@@ -24,6 +24,9 @@ const Blog = ({ blog, addLike }) => {
         <button onClick={addLike}>like</button>
       </div>
       <div>{blog.author}</div>
+      <div>
+        <button onClick={onDelete}>remove</button>
+      </div>
     </div>
   )
 

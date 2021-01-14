@@ -1,6 +1,6 @@
 DELETE http://localhost:3003/api/blogs/5ff8250e607e84031c0feeb2
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRhbmtpbWFzdGEiLCJpZCI6IjVmZjY3OTVlODA2OWJjNDRiOGY5MGY2OSIsImlhdCI6MTYxMDA5NTYzOX0.8Cr8ohsBVFh4BZWSMJwBDUtVvnJcY_eqR8KqmqAsWqs
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRhbmtpbWFzdGEiLCJpZCI6IjVmZjY3OTVlODA2OWJjNDRiOGY5MGY2OSIsImlhdCI6MTYxMDYyMTkwOH0.BLUGF-PwoTypzaww8sTW4T4ZTgF_nZrA0ga29iIBtno
 # Token from Dan Silverstein
 
 # DELETE http://localhost:3003/api/blogs/5ff81b2df6b7e12650dd1e23

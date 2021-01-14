@@ -48,28 +48,26 @@ blogsRouter.post('/', async (request, response) => {
 /** SECTION: Deleting a blog from database */
 blogsRouter.delete('/:id', async (request, response) => {
   const decodedToken = jwt.verify(request.token, process.env.SECRET);
-
   if (!request.token || !decodedToken) {
-    return response.status(401).json({ error: 'token missing or invalid' });
+    return response
+      .status(401).json({ error: 'token missing or invalid' });
   }
-
-  const user = await User.findById(decodedToken.id);
-  const blog = await Blog.findById(request.params.id);
-  if (blog.user.toString !== user.id.toString()) {
-    return response.status(401).json({
-      error: 'only the creator can delete blogs',
-    });
+  const toDelete = await Blog.findById(request.params.id);
+  if (toDelete === null) {
+    // decision: 204 or 404?
+    return response.status(204).end();
   }
-
-  await blog.remove();
-  user.blogs = user.blogs.filter((b) => b.id.toString() !== request.params.id.toString());
-  await user.save();
+  if (!toDelete.user
+    || toDelete.user.toString() !== decodedToken.id.toString()) {
+    return response
+      .status(401).json({ error: 'you have no access to this entry' });
+  }
+  await toDelete.remove();
   response.status(204).end();
 });
 
 /** SECTION: Updating a blog likes from database */
 blogsRouter.put('/:id', async (request, response) => {
-  console.log(request)
   const { body } = request;
 
   const updatedBlog = await Blog.findByIdAndUpdate(

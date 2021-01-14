@@ -68,7 +68,7 @@ const App = () => {
     setUser(null);
   }
 
-  const addBlog = async ({ title, author, url }) => {    
+  const handleAddBlog = async ({ title, author, url }) => {    
     try {
       const blog = await blogService.createBlog({
         title, author, url,
@@ -83,6 +83,30 @@ const App = () => {
     } catch (exception) {
       console.log(exception);
       setErrorMessage(`${exception}`);
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+      setSuccessMessage(null);
+    }
+  }
+
+  const handleLike = async (blog) => {
+    console.log(blog);
+    const blogId = blog.id;
+    const updatedBlog = {
+      user: blog.user.id,
+      likes: blog.likes + 1,
+      author: blog.author,
+      title: blog.title,
+      url: blog.url,
+    };
+    try {
+      const updated = await blogService.updateBlog(blogId, updatedBlog);
+      // Update state of App component
+      setBlogs(blogs.map((blog) => blog.id !== blogId ? blog : updated));
+    } catch(exception) {
+      console.log(exception);
+      setErrorMessage(`Successfully ${exception}`);
       setTimeout(() => {
         setErrorMessage(null);
       }, 5000);
@@ -122,7 +146,7 @@ const App = () => {
 
   const addBlogForm = () => (
     <Togglable buttonLabel="new blog">
-      <AddBlogForm createBlog={addBlog} />
+      <AddBlogForm createBlog={handleAddBlog} />
     </Togglable>
   )
 
@@ -149,7 +173,10 @@ const App = () => {
       {addBlogForm()}
 
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog 
+          key={blog.id} 
+          blog={blog}
+          addLike={() => handleLike(blog)} />
       )}
     </div>
   );

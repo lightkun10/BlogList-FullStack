@@ -7,6 +7,8 @@ import loginService from './services/login';
 import Togglable from './components/Togglable';
 import AddBlogForm from './components/AddBlogForm';
 
+const sortByLikes = (blogs) => blogs.sort((a, b) => b.likes - a.likes);
+
 const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [username, setUsername] = useState('');
@@ -17,7 +19,7 @@ const App = () => {
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
-      setBlogs( blogs )
+      setBlogs(sortByLikes(blogs))
     )  
   }, []);
 
@@ -79,7 +81,7 @@ const App = () => {
       }, 5000);
       setErrorMessage(null);
       // Update state of App component
-      setBlogs(blogs.concat(blog));
+      setBlogs(sortByLikes(blogs.concat(blog)));
     } catch (exception) {
       console.log(exception);
       setErrorMessage(`${exception}`);
@@ -103,7 +105,7 @@ const App = () => {
     try {
       const updated = await blogService.updateBlog(blogId, updatedBlog);
       // Update state of App component
-      setBlogs(blogs.map((blog) => blog.id !== blogId ? blog : updated));
+      setBlogs(sortByLikes(blogs.map((blog) => blog.id !== blogId ? blog : updated)));
     } catch(exception) {
       console.log(exception);
       setErrorMessage(`Successfully ${exception}`);

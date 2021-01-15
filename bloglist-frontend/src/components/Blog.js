@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 const Blog = ({ blog, addLike, onDelete }) => {
-  const [detailVisible, setDetailVisible] = useState('view');
+  const [detailVisible, setDetailVisible] = useState('view')
 
   const blogStyle = {
     paddingTop: 10,
@@ -20,12 +20,12 @@ const Blog = ({ blog, addLike, onDelete }) => {
     <div className="blog__entry__content">
       <div>{blog.url}</div>
       <div>
-        likes {blog.likes} 
+        likes {blog.likes}
         <button onClick={addLike}>like</button>
       </div>
       <div>{blog.author}</div>
       <div>
-        {onDelete ? 
+        {onDelete ?
           <button onClick={onDelete}>remove</button> :
           ''
         }
@@ -39,11 +39,11 @@ const Blog = ({ blog, addLike, onDelete }) => {
       <div>
         {blog.title} {blog.author} <button onClick={handleVisibleClick}>{detailVisible}</button>
       </div>
-        {detailVisible === 'hide' 
-          ? toggleDetailView() : ''
-        }
+      {detailVisible === 'hide'
+        ? toggleDetailView() : ''
+      }
     </div>
-  );
-};
+  )
+}
 
 export default Blog

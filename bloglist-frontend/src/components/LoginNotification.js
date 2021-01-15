@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
 const LoginNotification = ({ errorMessage }) => {
-  if (errorMessage === null) return null;
+  if (errorMessage === null) return null
 
   return (
     <div className="error">
@@ -10,4 +10,4 @@ const LoginNotification = ({ errorMessage }) => {
   )
 }
 
-export default LoginNotification;
+export default LoginNotification

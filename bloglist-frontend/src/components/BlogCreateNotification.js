@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
 const BlogCreateNotification = ({ successMessage }) => {
-  if (successMessage === null) return null;
+  if (successMessage === null) return null
 
   return (
     <div className="success">
@@ -10,4 +10,4 @@ const BlogCreateNotification = ({ successMessage }) => {
   )
 }
 
-export default BlogCreateNotification;
+export default BlogCreateNotification

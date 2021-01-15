@@ -180,6 +180,8 @@ const App = () => {
     );
   };
 
+  // console.log(blogs);
+
   return (
     <div id="maincontent">
       <div className="header">
@@ -198,8 +200,12 @@ const App = () => {
           key={blog.id} 
           blog={blog}
           addLike={() => handleLike(blog)}
-          onDelete={() => handleDelete(blog)}
-          />
+          onDelete={
+            blog.user && blog.user.username === user.username ?
+            () => handleDelete(blog) :
+            null
+          }
+        />
       )}
     </div>
   );

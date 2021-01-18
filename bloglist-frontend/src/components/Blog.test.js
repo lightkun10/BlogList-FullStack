@@ -63,22 +63,3 @@ describe('<Blog />', () => {
   })
 
 });
-
-// test('clicking the button calls event handler once', () => {
-//   const blog = {
-//     title: 'test title',
-//     content: 'test content',
-//     url: 'test url',
-//     likes: 0,
-//     author: 'test author',
-//   }
-
-//   const mockHandler = jest.fn();
-
-//   const component = render(
-//     <Blog blog={blog} />
-//   );
-
-//   const button = component.container.querySelector('.blog__entry__toggledetail');
-//   // console.log(button);
-// });

@@ -17,14 +17,18 @@ const Blog = ({ blog, addLike, onDelete }) => {
   }
 
   const toggleDetailView = () => (
-    <div className="blog__entry__content">
-      <div>{blog.url}</div>
-      <div>
+    <div className="blog__entry__detail">
+      <div className="blog__entry__detail__url">
+        {blog.url}
+      </div>
+      <div className="blog__entry__detail__likes">
         likes {blog.likes}
         <button onClick={addLike}>like</button>
       </div>
-      <div>{blog.author}</div>
-      <div>
+      <div className="blog__entry__detail__author">
+        {blog.author}
+      </div>
+      <div className="blog__entry__detail__deletebutton">
         {onDelete ?
           <button onClick={onDelete}>remove</button> :
           ''
@@ -36,8 +40,17 @@ const Blog = ({ blog, addLike, onDelete }) => {
   // console.log(blog)
   return (
     <div style={blogStyle} className="blog__entry">
-      <div>
-        {blog.title} {blog.author} <button onClick={handleVisibleClick}>{detailVisible}</button>
+      <div className="blog__entry__content">
+        <div className='blog__entry__content__title'>
+          {blog.title}
+        </div>
+        <div className='blog__entry__content__author'>
+          {blog.author}
+        </div>
+        <button
+          className="blog__entry__toggledetail"
+          onClick={handleVisibleClick}>{detailVisible}
+        </button>
       </div>
       {detailVisible === 'hide'
         ? toggleDetailView() : ''

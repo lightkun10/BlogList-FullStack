@@ -23,7 +23,11 @@ const Blog = ({ blog, addLike, onDelete }) => {
       </div>
       <div className="blog__entry__detail__likes">
         likes {blog.likes}
-        <button onClick={addLike}>like</button>
+        <button
+          className="blog__entry__detail__likes__button"
+          onClick={addLike}>
+          like
+        </button>
       </div>
       <div className="blog__entry__detail__author">
         {blog.author}

@@ -49,6 +49,19 @@ describe('<Blog />', () => {
     expect(component.container).toHaveTextContent('test-likes');
   });
 
+  test('if the like button is clicked twice, the event handler is called twice', () => {
+    const detailButton =
+      component.container.querySelector('.blog__entry__button__toggledetail');
+    fireEvent.click(detailButton);
+
+    const likeButton = component.container
+      .querySelector('.blog__entry__detail')
+      .querySelector('.blog__entry__detail__likes__button');
+    fireEvent.click(likeButton);
+    fireEvent.click(likeButton);
+    expect(addLike.mock.calls).toHaveLength(2);
+  })
+
 });
 
 // test('clicking the button calls event handler once', () => {

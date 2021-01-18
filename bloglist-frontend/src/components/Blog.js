@@ -48,7 +48,7 @@ const Blog = ({ blog, addLike, onDelete }) => {
           {blog.author}
         </div>
         <button
-          className="blog__entry__toggledetail"
+          className="blog__entry__button__toggledetail"
           onClick={handleVisibleClick}>{detailVisible}
         </button>
       </div>

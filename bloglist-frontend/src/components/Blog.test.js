@@ -41,6 +41,14 @@ describe('<Blog />', () => {
     expect(component.container).not.toHaveTextContent('test-likes');
   });
 
+  test('blog\'s url and number of likes are shown when the details button clicked', () => {
+    const detailButton =
+      component.container.querySelector('.blog__entry__button__toggledetail')
+    fireEvent.click(detailButton);
+    expect(component.container).toHaveTextContent('test-url');
+    expect(component.container).toHaveTextContent('test-likes');
+  });
+
 });
 
 // test('clicking the button calls event handler once', () => {

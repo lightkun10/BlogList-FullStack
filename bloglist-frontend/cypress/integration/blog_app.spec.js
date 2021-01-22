@@ -136,5 +136,40 @@ describe('Blog app', function() {
         })
       })
     });
+
+    describe('and there are multiple blogs available', function() {
+      // Make three different blog
+      beforeEach(function() {
+        for(let i = 0; i < 3; i++) {
+          cy.createBlog({
+            title: `test blog ${i}`,
+            author: `test author ${i}`,
+            url: `test url ${i}`,
+            likes: `${i}`
+          });
+        }
+        cy.visit('http://localhost:3000');
+      });
+
+      // Add like some
+      it('that is sorted by likes count', function() {
+        // click all blog content
+        cy.get('.blog__entry__content').each($div => {
+          cy.wrap($div).contains('view').click();
+        });
+
+        // ensure that all div is 3
+        cy.get('.blog__entry__content').then($divs => {
+          expect($divs).to.have.length(3);
+        })
+
+        // save all likes of each blog
+        let likes = $divs.map((i, el) => {
+          return Cypress.$(el).find('.likesAmount').text();
+        });
+        // convert jquery object into array
+        expect(likes.get()).to.deep.eq(['2', '1', '0']);
+      })
+    });
   })
 });

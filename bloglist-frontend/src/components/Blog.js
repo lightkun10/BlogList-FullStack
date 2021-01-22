@@ -17,22 +17,22 @@ const Blog = ({ blog, addLike, onDelete }) => {
   }
 
   const toggleDetailView = () => (
-    <div className="blog__entry__detail">
-      <div className="blog__entry__detail__url">
+    <div className="blog__entry__content__detail">
+      <div className="blog__entry__content__detail__url">
         {blog.url}
       </div>
-      <div className="blog__entry__detail__likes">
+      <div className="blog__entry__content__detail__likes">
         likes {blog.likes}
         <button
-          className="blog__entry__detail__likes__button"
+          className="blog__entry__content__detail__likes__button"
           onClick={addLike}>
           like
         </button>
       </div>
-      <div className="blog__entry__detail__author">
+      <div className="blog__entry__content__detail__author">
         {blog.author}
       </div>
-      <div className="blog__entry__detail__deletebutton">
+      <div className="blog__entry__content__detail__deletebutton">
         {onDelete ?
           <button onClick={onDelete}>remove</button> :
           ''
@@ -52,13 +52,16 @@ const Blog = ({ blog, addLike, onDelete }) => {
           {blog.author}
         </div>
         <button
+          id="detailButton"
           className="blog__entry__button__toggledetail"
           onClick={handleVisibleClick}>{detailVisible}
         </button>
-      </div>
-      {detailVisible === 'hide'
+
+        {detailVisible === 'hide'
         ? toggleDetailView() : ''
-      }
+        }
+      </div>
+      
     </div>
   )
 }

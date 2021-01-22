@@ -58,5 +58,36 @@ describe('Blog app', function() {
       cy.get('.blog__addform__form__submit').click();
       cy.get('.blog__entry__content__title').contains('test title');
     });
+
+    describe('and several blogs exist', function() {
+      beforeEach(function() {
+        cy.createBlog({
+          title: 'first blog',
+          author: 'first author',
+          url: 'first url'
+        });
+        cy.createBlog({
+          title: 'second blog',
+          author: 'second author',
+          url: 'second url'
+        });
+      })
+
+      it('it can be liked', function() {
+        cy.contains('second blog')
+          .parent()
+          .get('#detailButton')
+          .click();
+        
+        cy.contains('second blog')
+          .parent()
+          .get('.blog__entry__content__detail__likes__button')
+          .click();
+        cy.contains('second blog')
+          .parent()
+          .get('.blog__entry__content__detail__likes')
+          .should('contain', 'likes 1');
+      })
+    });
   })
 });

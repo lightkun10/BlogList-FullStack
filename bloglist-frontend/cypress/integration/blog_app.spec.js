@@ -59,7 +59,7 @@ describe('Blog app', function() {
       cy.get('.blog__entry__content__title').contains('test title');
     });
 
-    describe('and several blogs exist', function() {
+    describe('and current user added blogs', function() {
       beforeEach(function() {
         cy.createBlog({
           title: 'first blog',
@@ -87,6 +87,53 @@ describe('Blog app', function() {
           .parent()
           .get('.blog__entry__content__detail__likes')
           .should('contain', 'likes 1');
+      });
+
+      it('it can be deleted', function() {
+        cy.contains('first blog').as('testfirstBlog');
+        
+        cy.get('@testfirstBlog')
+          .parent()
+          .get('.blog__entry__button__toggledetail')
+          .get('#detailButton')
+          .click();
+
+        cy.get('@testfirstBlog')
+          .parent()
+          .get('.blog__entry__content__detail__deletebutton')
+          .get('#deleteButton')
+          .click();
+        cy.on('window:confirm', () => true);
+        cy.get('@testfirstBlog').should('not.exist');
+      })
+
+      describe('another user logged in', function() {
+        beforeEach(function() {
+          // cy.request('POST', 'http://localhost:3003/api/testing/reset');
+          const user2 = {
+            name: 'testname2',
+            username: 'testusername2',
+            password: 'testpassword2',
+          }
+          cy.request('POST', 'http://localhost:3003/api/users', user2);
+          cy.login({ username: 'testusername2', password: 'testpassword2' });
+        });
+
+        it('cannot delete blog not created by them', function() {
+          cy.contains('first blog').as('testfirstBlog');
+
+          cy.get('@testfirstBlog')
+          .parent()
+          .get('.blog__entry__button__toggledetail')
+          .get('#detailButton')
+          .click();
+
+          cy.get('@testfirstBlog')
+          .parent()
+          .get('.blog__entry__content__detail__deletebutton')
+          .get('#deleteButton')
+          .should('not.exist');
+        })
       })
     });
   })

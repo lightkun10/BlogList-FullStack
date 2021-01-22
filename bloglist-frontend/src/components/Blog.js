@@ -34,7 +34,7 @@ const Blog = ({ blog, addLike, onDelete }) => {
       </div>
       <div className="blog__entry__content__detail__deletebutton">
         {onDelete ?
-          <button onClick={onDelete}>remove</button> :
+          <button id="deleteButton" onClick={onDelete}>remove</button> :
           ''
         }
       </div>
